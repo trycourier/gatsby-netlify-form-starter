@@ -3,6 +3,7 @@ module.exports = {
     siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
+    "gatsby-plugin-react-helmet",
     "@chakra-ui/gatsby-plugin",
     {
       resolve: "gatsby-plugin-prettier-eslint",
