@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useCallback } from "react";
 import { Helmet } from "react-helmet";
 import {
   Container,
@@ -11,8 +11,11 @@ import {
   Input,
   Flex,
   Link,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
-import { Formik, Field, FieldProps } from "formik";
+import { Formik, Field, FieldProps, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 const FormSchema = Yup.object().shape({
@@ -21,8 +24,34 @@ const FormSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
+const initialValues = {
+  name: "",
+  company: "",
+  email: "",
+};
+
+type Values = typeof initialValues;
+
 const IndexPage = () => {
-  const submitHandler = () => {};
+  const submitHandler = useCallback(
+    async (values: Values, helpers: FormikHelpers<Values>) => {
+      try {
+        const response = await fetch("/.netlify/functions/submit_form", {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: { "content-type": "application/json" },
+        });
+
+        if (!response.ok) throw new Error("Request failed");
+
+        helpers.resetForm();
+        helpers.setStatus("success");
+      } catch {
+        helpers.setStatus("error");
+      }
+    },
+    []
+  );
 
   return (
     <>
@@ -39,16 +68,23 @@ const IndexPage = () => {
         </Text>
 
         <Formik
-          initialValues={{
-            name: "",
-            company: "",
-            email: "",
-          }}
+          initialValues={initialValues}
           validationSchema={FormSchema}
           onSubmit={submitHandler}
         >
-          {({ handleSubmit, errors, touched }) => (
+          {({ handleSubmit, errors, touched, isSubmitting, status }) => (
             <form onSubmit={handleSubmit}>
+              {status && (
+                <Alert status={status} mb={8}>
+                  <AlertIcon />
+                  <AlertDescription>
+                    {status === "error"
+                      ? "Error submitting the form"
+                      : "Successfully submitted"}
+                  </AlertDescription>
+                </Alert>
+              )}
+
               <Field name="name">
                 {({ field }: FieldProps) => (
                   <FormControl mb={8} isInvalid={!!errors.name && touched.name}>
@@ -85,7 +121,12 @@ const IndexPage = () => {
                 )}
               </Field>
 
-              <Button type="submit" colorScheme="teal" isFullWidth>
+              <Button
+                type="submit"
+                colorScheme="teal"
+                isFullWidth
+                isLoading={isSubmitting}
+              >
                 Submit
               </Button>
             </form>

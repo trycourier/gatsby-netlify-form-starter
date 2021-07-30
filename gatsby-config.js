@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: process.env.URL,
   },
   plugins: [
     "gatsby-plugin-react-helmet",
