@@ -6,6 +6,18 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "@chakra-ui/gatsby-plugin",
     {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        name: "Gatsby Netlify Form Starter | Courier",
+        short_name: "Gatsby Netlify Form Starter",
+        start_url: "/",
+        background_color: "#ffffff",
+        theme_color: "#9121C2",
+        display: "standalone",
+        icon: "src/images/icon.png",
+      },
+    },
+    {
       resolve: "gatsby-plugin-prettier-eslint",
       options: {
         prettier: {
