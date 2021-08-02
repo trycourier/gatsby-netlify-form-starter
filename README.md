@@ -1,54 +1,105 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# Courier Gatsby Netlify Form Starter
 
-## 🚀 Quick start
+This is an example starter app that is showcasing how to build a form in
+[Gatsby](https://gatsbyjs.com), host it on [Netlify](https://www.netlify.com/) and use
+[Netlify functions](https://www.netlify.com/products/functions/) to send a notification using
+[Courier](https://www.courier.com/) on every form submit.
 
-1.  **Create a Gatsby site.**
+## Prerequisites
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+- Node.js
+- yarn
+- Netlify Account. Sign up [here](https://app.netlify.com/signup).
+- Courier Account.
+  Quickly [sign up](https://app.courier.com/signup) for a free account.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+> Note that [Chakra-ui](https://chakra-ui.com/), [Formik](https://formik.org/), and
+> [Yup](https://github.com/jquense/yup) dependencies are used to quickly build, style, and validate
+> the form, but are completely optional.
 
-2.  **Start developing.**
+## Online Demo
 
-    Navigate into your new site’s directory and start it up.
+Check out the [online demo here](https://vigilant-franklin-82f2dc.netlify.app/).
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+Note that you can fully customize the form fields.
 
-3.  **Open the code and start customizing!**
+## Getting started
 
-    Your site is now running at http://localhost:8000!
+1. **Clone this repo and change the directory to its root folder.**
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+2. **Install dependencies:**
 
-4.  **Learn more**
+```shell
+yarn install
+```
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+3. **Link the local repo to a Netlify website:**
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+```shell
+yarn run netlify link
+```
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+4. **Create a notification on [Courier](https://www.courier.com/).**
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+   1. When you sign up you'll see a "Create Notification" button that lets you easily Design, Preview
+      and Test notifications.
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+   2. Create a notification and select the Channels (Email, Push, SMS, etc.) and Integrations
+      (SendGrid, Twilio, Slack, etc.) you want to send it through.
 
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+   3. Create a test event on the next "Preview" step to design the notification. Add any test data
+      you can then reference in the notification to the `data` JSON object and any properties that are
+      required by your [Integration of choice](https://docs.courier.com/docs) to the `profile` object.
+      In our test starter, we have 3 form fields (name, company, and email) and are using a SendGrid
+      integration to test emails for every submission, so our test event will look like this:
 
-## 🚀 Quick start (Gatsby Cloud)
+   ```json
+   {
+     "data": {
+       "name": "John Smith",
+       "company": "Acme Inc",
+       "email": "john@acme.com"
+     },
+     "profile": {
+       "email": "form-submissions@courier.com"
+     },
+     "override": {}
+   }
+   ```
 
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+   4. Build and design your notification however you like. Keep in mind that you can reference any
+      value in data with liquid tags anywhere. Like reference `{company}` anywhere to populate with
+      the submitter's company value.
 
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+   5. You can switch to the "Send" step to send test notifications using the Test Event you created
+      earlier and making it work exactly as you wish.
+
+   6. Take note of the `Auth Token`, `Notification ID`, and `Recipient ID` on this page. You'll need
+      them in just a bit.
+
+5. **Set Netlify environment variables:**
+
+   ```shell
+   yarn run netlify env:set ENV_VAR "VALUE"
+   ```
+
+   1. `COURIER_AUTH_TOKEN` - Courier Auth Token
+   2. `COURIER_EVENT_ID` - Courier Notification ID
+   3. `COURIER_RECIPIENT_ID` - Courier Recipient ID
+   4. `COURIER_RECIPIENT_EMAIL` - Courier Profile Email
+
+6. **Now you are ready to run the app and test it:**
+
+   ```shell
+   yarn run develop
+   ```
+
+   This will run the Gatsby app locally with [Netlify Dev](https://www.netlify.com/products/dev/) to
+   make all the Netlify env variables available locally and allow to test Netlify Functions.
+
+   > Be sure to open **localhost:8888** instead of localhost:8000. The latter is the Gatsby server,
+   > while the first one is the actual Netlify Dev server which wraps the Gatsby server.
+
+## Additional documentation
+
+Check out additional documentation on [Courier Documentations](https://docs.courier.com/docs).
