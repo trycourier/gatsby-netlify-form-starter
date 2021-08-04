@@ -74,8 +74,8 @@ yarn run netlify link
    5. You can switch to the "Send" step to send test notifications using the Test Event you created
       earlier and making it work exactly as you wish.
 
-   6. Take note of the `Auth Token`, `Notification ID`, and `Recipient ID` on this page. You'll need
-      them in just a bit.
+   6. Take note of the `Auth Token` and `Notification ID` on this page. You'll need them in just a
+      bit.
 
 5. **Set Netlify environment variables:**
 
@@ -85,8 +85,7 @@ yarn run netlify link
 
    1. `COURIER_AUTH_TOKEN` - Courier Auth Token
    2. `COURIER_EVENT_ID` - Courier Notification ID
-   3. `COURIER_RECIPIENT_ID` - Courier Recipient ID
-   4. `COURIER_RECIPIENT_EMAIL` - Courier Profile Email
+   3. `COURIER_RECIPIENT_EMAIL` - Courier Profile Email
 
 6. **Now you are ready to run the app and test it:**
 

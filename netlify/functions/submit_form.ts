@@ -35,7 +35,7 @@ const handler: Handler = async (event) => {
   try {
     const response = await courier.send({
       eventId: process.env.COURIER_EVENT_ID,
-      recipientId: process.env.COURIER_RECIPIENT_ID,
+      recipientId: process.env.COURIER_RECIPIENT_EMAIL,
       profile: { email: process.env.COURIER_RECIPIENT_EMAIL },
       data: {
         name: params.name,
