@@ -34,7 +34,7 @@ const handler: Handler = async (event) => {
 
   try {
     const response = await courier.send({
-      eventId: process.env.COURIER_EVENT_ID,
+      eventId: process.env.COURIER_EVENT,
       recipientId: process.env.COURIER_RECIPIENT,
       profile: {
         // > For the email Integrations `email` property is required
@@ -53,8 +53,30 @@ const handler: Handler = async (event) => {
       override: {},
     });
 
+    // > You can also send a notification to a list of recipients with a single API call
+    //
+    // const response = await courier.lists.send({
+    //   event: process.env.COURIER_EVENT,
+    //   // > It can be either a list id
+
+    //   list: process.env.COURIER_RECIPIENT,
+
+    //   // > Or a pattern: https://help.courier.com/en/articles/4340268-lists-api-list-id-pattern-guidelines
+
+    //   // pattern: process.env.COURIER_RECIPIENT,
+
+    //   data: {
+    //     name: params.name,
+    //     company: params.company,
+    //     email: params.email,
+    //   },
+    //   override: {},
+    // });
+
     return buildResponse(201, response);
   } catch (error) {
+    console.error(process.env.COURIER_RECIPIENT, error.response.data);
+
     return buildResponse(500, { error: "Internal Server Error" });
   }
 };
