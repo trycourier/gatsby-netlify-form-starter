@@ -39,65 +39,78 @@ yarn install
 yarn run netlify link
 ```
 
-4. **Create a notification on [Courier](https://www.courier.com/).**
+4.  **Create a notification on [Courier](https://www.courier.com/).**
 
-   1. When you sign up you'll see a "Create Notification" button that lets you easily Design, Preview
-      and Test notifications.
+    1. When you sign up you'll see a "Create Notification" button that lets you easily Design, Preview
+       and Test notifications.
 
-   2. Create a notification and select the Channels (Email, Push, SMS, etc.) and Integrations
-      (SendGrid, Twilio, Slack, etc.) you want to send it through.
+    2. Create a notification and select the Channels (Email, Push, SMS, etc.) and Integrations
+       (SendGrid, Twilio, Slack, etc.) you want to send it through.
 
-   3. Create a test event on the next "Preview" step to design the notification. Add any test data
-      you can then reference in the notification to the `data` JSON object and any properties that are
-      required by your [Integration of choice](https://docs.courier.com/docs) to the `profile` object.
-      In our test starter, we have 3 form fields (name, company, and email) and are using a SendGrid
-      integration to test emails for every submission, so our test event will look like this:
+    3. Create a test event on the next "Preview" step to design the notification. Add any test data
+       you can then reference in the notification to the `data` JSON object and any properties that are
+       required by your [Integration of choice](https://docs.courier.com/docs) to the `profile` object.
+       In our test starter, we have 3 form fields (name, company, and email) and are using
+       [SendGrid integration](https://docs.courier.com/docs/getting-started-sendgrid) to send emails
+       for every submission, so our test event will look like this:
 
-   ```json
-   {
-     "data": {
-       "name": "John Smith",
-       "company": "Acme Inc",
-       "email": "john@acme.com"
-     },
-     "profile": {
-       "email": "form-submissions@courier.com"
-     },
-     "override": {}
-   }
-   ```
+       ```json
+       {
+         "data": {
+           "name": "John Smith",
+           "company": "Acme Inc",
+           "email": "john@acme.com"
+         },
+         "profile": {
+           "email": "form-submissions@courier.com"
+         },
+         "override": {}
+       }
+       ```
 
-   4. Build and design your notification however you like. Keep in mind that you can reference any
-      value in data with liquid tags anywhere. Like reference `{company}` anywhere to populate with
-      the submitter's company value.
+    4. If you want to [send text messages](https://docs.courier.com/docs/getting-started-twilio)
+       then your `profile` JSON object will look something like this:
 
-   5. You can switch to the "Send" step to send test notifications using the Test Event you created
-      earlier and making it work exactly as you wish.
+       ```json
+       {
+         "profile": {
+           "phone_number": "+14804209586"
+         }
+       }
+       ```
 
-   6. Take note of the `Auth Token` and `Notification ID` on this page. You'll need them in just a
-      bit.
+    5. Build and design your notification however you like. Keep in mind that you can reference any
+       value in data with liquid tags anywhere. Like reference `{company}` anywhere to populate with
+       the submitter's company value.
 
-5. **Set Netlify environment variables:**
+    6. You can switch to the "Send" step to send test notifications using the Test Event you created
+       earlier and making it work exactly as you wish.
 
-   ```shell
-   yarn run netlify env:set ENV_VAR "VALUE"
-   ```
+    7. Take note of the `Auth Token` and `Notification ID` on this page. You'll need them in just a
+       bit.
 
-   1. `COURIER_AUTH_TOKEN` - Courier Auth Token
-   2. `COURIER_EVENT_ID` - Courier Notification ID
-   3. `COURIER_RECIPIENT_EMAIL` - Courier Profile Email
+5.  **Set Netlify environment variables:**
 
-6. **Now you are ready to run the app and test it:**
+    ```shell
+    yarn run netlify env:set ENV_VAR "VALUE"
+    ```
 
-   ```shell
-   yarn run develop
-   ```
+    1. `COURIER_AUTH_TOKEN` - Courier Auth Token
+    2. `COURIER_EVENT_ID` - Courier Notification ID
+    3. `COURIER_RECIPIENT` - Courier Profile Email, or Phone number, or any other identifier required
+       by the Channel Integration you are using
 
-   This will run the Gatsby app locally with [Netlify Dev](https://www.netlify.com/products/dev/) to
-   make all the Netlify env variables available locally and allow to test Netlify Functions.
+6.  **Now you are ready to run the app and test it:**
 
-   > Be sure to open **localhost:8888** instead of localhost:8000. The latter is the Gatsby server,
-   > while the first one is the actual Netlify Dev server which wraps the Gatsby server.
+    ```shell
+    yarn run develop
+    ```
+
+    This will run the Gatsby app locally with [Netlify Dev](https://www.netlify.com/products/dev/) to
+    make all the Netlify env variables available locally and allow to test Netlify Functions.
+
+    > Be sure to open **localhost:8888** instead of localhost:8000. The latter is the Gatsby server,
+    > while the first one is the actual Netlify Dev server which wraps the Gatsby server.
 
 ## Additional documentation
 

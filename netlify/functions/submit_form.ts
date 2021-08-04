@@ -35,8 +35,16 @@ const handler: Handler = async (event) => {
   try {
     const response = await courier.send({
       eventId: process.env.COURIER_EVENT_ID,
-      recipientId: process.env.COURIER_RECIPIENT_EMAIL,
-      profile: { email: process.env.COURIER_RECIPIENT_EMAIL },
+      recipientId: process.env.COURIER_RECIPIENT,
+      profile: {
+        // > For the email Integrations `email` property is required
+        email: process.env.COURIER_RECIPIENT,
+        // > For text message it will look something like this:
+        //
+        //    phone_number: process.env.COURIER_RECIPIENT,
+        //
+        // > Please check the docs for your Integration for exact configuration
+      },
       data: {
         name: params.name,
         company: params.company,
