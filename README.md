@@ -49,9 +49,9 @@ yarn run netlify link
 
     3.  Create a test event on the next "Preview" step to design the notification. Add any test data
         you can then reference in the notification to the `data` JSON object and any properties that are
-        required by your [Integration of choice](https://docs.courier.com/docs) to the `profile` object.
+        required by your [Integration of choice](https://www.courier.com/providers/) to the `profile` object.
         In our test starter, we have 3 form fields (name, company, and email) and are using
-        [SendGrid integration](https://docs.courier.com/docs/getting-started-sendgrid) to send emails
+        [SendGrid integration](https://www.courier.com/docs/guides/providers/email/sendgrid/) to send emails
         for every submission, so our test event will look like this:
 
         ```json
@@ -68,7 +68,7 @@ yarn run netlify link
         }
         ```
 
-    4.  If you want to [send text messages](https://docs.courier.com/docs/getting-started-twilio)
+    4.  If you want to [send text messages](https://www.courier.com/docs/guides/providers/sms/twilio/)
         then your `profile` JSON object will look something like this:
 
         ```json
@@ -89,15 +89,9 @@ yarn run netlify link
     7.  Take note of the `Auth Token` and `Notification ID` on this page. You'll need them in just a
         bit.
 
-    8.  _Optionally_ if you want to send notification to a list of recipients you can use
-        [Courier Recipients Lists](https://help.courier.com/en/articles/4973122-using-the-recipients-list)
-        and use [Send List API](https://docs.courier.com/reference/sendlist).
-
-> You can find code examples calling Courier [/send](https://docs.courier.com/reference/sendmessage)
-> and [/send/list](https://docs.courier.com/reference/sendlist) APIs with
+> You can find code examples calling Courier [/send](https://www.courier.com/docs/reference/send/message/) APIs with
 > [@trycourier/courier](https://www.npmjs.com/package/@trycourier/courier) in Netlify Function in the
-> [netlify/functions/submit_form.ts](https://github.com/trycourier/gatsby-netlify-form-starter/blob/main/netlify/functions/submit_form.ts)
-> file.
+> [netlify/functions/submit_form.ts](https://github.com/trycourier/gatsby-netlify-form-starter/blob/main/netlify/functions/submit_form.ts) file.
 
 5.  **Set Netlify environment variables:**
 
@@ -124,4 +118,4 @@ yarn run netlify link
 
 ## Additional documentation
 
-Check out additional documentation on [Courier Documentations](https://docs.courier.com/docs).
+Check out additional documentation on [Courier Documentations](https://www.courier.com/docs/).
