@@ -7,3 +7,8 @@
 
 [[plugins]]
   package = "@netlify/plugin-gatsby"
+
+[template.environment]
+  COURIER_AUTH_TOKEN = "Courier Auth Token"
+  COURIER_EVENT = "Courier Notification ID"
+  COURIER_RECIPIENT = "Courier Profile ID"

@@ -23,6 +23,10 @@ Check out the [online demo here](https://vigilant-franklin-82f2dc.netlify.app/).
 
 Note that you can fully customize the form fields.
 
+## One-click deploy
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/trycourier/gatsby-netlify-form-starter)
+
 ## Getting started
 
 1. **Clone this repo and change the directory to its root folder.**
